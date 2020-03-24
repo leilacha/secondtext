@@ -6,4 +6,5 @@ class Section < ApplicationRecord
   validates :status, inclusion: { in: STATUSES }, presence: true
   validates :name, :status, presence: true
   validates :name, uniqueness: true
+  has_many :products, dependent: :destroy
 end

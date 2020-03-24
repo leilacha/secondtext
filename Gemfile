@@ -10,6 +10,7 @@ gem 'rails',      '6.0.2.2'
 gem 'sass-rails', '5.1.0'
 gem 'turbolinks', '5.2.0'
 gem 'webpacker',  '4.0.7'
+gem 'haml'
 
 group :development, :test do
   gem 'byebug',  '11.0.1', platforms: %i[mri mingw x64_mingw]
@@ -22,6 +23,8 @@ group :development do
   gem 'spring',                '2.1.0'
   gem 'spring-watcher-listen', '2.0.1'
   gem 'web-console',           '4.0.1'
+  gem 'faker', git: 'https://github.com/stympy/faker.git', branch: 'master'
+  gem 'pry', '~> 0.12.2'
 end
 
 group :test do
