@@ -8,6 +8,8 @@ class Product < ApplicationRecord
   belongs_to :section
   belongs_to :author
 
+  has_many :likes, dependent: :destroy
+
   BOOK_CATEGORIES = %w[Tout Romans Essais Poésie]
   MOVIE_CATEGORIES = %w[Tout Fiction Documentaire]
 end

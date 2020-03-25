@@ -12,5 +12,6 @@
           %td= index + 1
           %td= link_to product.title, product_path(product)
           %td= link_to product.author.name, author_path(product.author)
-          %td
-            %i{class: 'fa fa-heart'}
+          %td{id: "like-product-#{product.id}"}
+            - liked = user_signed_in? ? user_like?(current_user, product) : false
+            = render 'products/like', product: product, user: current_user, liked: liked

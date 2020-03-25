@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-10.times do
+20.times do
   Author.create(
     bio: Faker::Hipster.paragraphs,
     name: Faker::FunnyName.name
@@ -16,12 +16,22 @@ authors = Author.all.pluck(:id)
 
 10.times do
   Product.create(
-    bio: Faker::Hipster.paragraphs,
-    name: Faker::FunnyName.name,
-    description: Faker::Hipster.paragraphs,
-    release_date: Faker::Date.between(from: 200.years.ago, to: 1.year.ago),
+    title: Faker::Book.title,
+    description: Faker::Hipster.paragraphs, 
+    release_year: rand(1984..2020),
     section_id: Section.find_by(name: 'Livres').id,
-    category: %w[fiction non-fiction essay].sample,
+    category: %w[Romans Essais Poésie].sample,
+    author_id: authors.sample
+  )
+end
+
+10.times do
+  Product.create(
+    title: Faker::Book.title,
+    description: Faker::Hipster.paragraphs,
+    release_year: rand(1984..2020),
+    section_id: Section.find_by(name: 'Films').id,
+    category: %w[Fiction Documentaire].sample,
     author_id: authors.sample
   )
 end

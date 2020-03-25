@@ -6,4 +6,8 @@ module ProductsHelper
   	link = section + '_path'
   	send(link.to_sym, {category: category})
   end
+
+  def user_like?(user, product)
+  	Like.where(user_id: user.id, product_id: product.id).any?
+  end
 end

@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   get 'livres', to: 'products#books', as: 'books'
   get 'films', to: 'products#movies', as: 'movies'
   get 'about', to: 'static_pages#about', as: 'about'
-  resources :products, only: [:show]
+  resources :products, only: [:show] do
+      member do
+        post 'like'
+        delete 'unlike'
+      end
+  end
   resources :authors, only: [:show]
 end
