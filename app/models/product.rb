@@ -6,6 +6,7 @@ class Product < ApplicationRecord
   validates :title, uniqueness: { scope: :author,
                                   message: 'Le titre existe déjà pour cet auteur' }
   belongs_to :section
+  belongs_to :author
 
   BOOK_CATEGORIES = %w[Tout Romans Essais Poésie]
   MOVIE_CATEGORIES = %w[Tout Fiction Documentaire]

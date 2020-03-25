@@ -1,0 +1,12 @@
+.section
+  .container
+    %h1{class: 'title has-text-primary'} #{@author.name}
+    %h2{class: 'subtitle'} Sa vie, son oeuvre
+.section
+  .container
+    %p #{@author.bio}
+.section
+  .container
+    %ul
+      - @author.products.each do |product|
+        %li #{link_to product.title, product_path(product)} - (#{product.release_year})

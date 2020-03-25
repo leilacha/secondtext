@@ -1,7 +1,7 @@
 .section
   .container
     %h1{class: 'title has-text-primary'} #{@product.title}
-    %h2{class: 'subtitle'} #{@product.author} - #{@product.category} - #{@product.release_year}
+    %h2{class: 'subtitle'} #{link_to @product.author.name, author_path(@product.author)} - #{@product.category} - #{@product.release_year}
 .section
   .container
     %p #{@product.description}

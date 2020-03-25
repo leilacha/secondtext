@@ -8,11 +8,16 @@
         = link_to 'Films', movies_path, class: 'navbar-item'
         = link_to 'A propos', about_path, class: 'navbar-item'
       .navbar-end
-        .navbar-item.has-dropdown.is-hoverable
-          = link_to 'Login', movies_path, class: 'navbar-link'
-          .navbar-dropdown.is-boxed
-            .navbar-item
-              = link_to 'Mon profil', movies_path
-            .navbar-item
-              = link_to 'Log out', movies_path  
-
+        - if user_signed_in?
+          .navbar-item.has-dropdown.is-hoverable
+            = link_to current_user.username, movies_path, class: 'navbar-link'
+            .navbar-dropdown.is-boxed
+              .navbar-item
+                = link_to 'Mon profil', movies_path
+              .navbar-item
+                = link_to 'Log out', destroy_user_session_path, method: :delete
+        - else
+          .navbar-item
+            = link_to 'Se connecter', new_user_session_path
+          .navbar-item
+            = link_to('S\'inscrire', new_user_registration_path)

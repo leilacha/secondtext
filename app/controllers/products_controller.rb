@@ -2,6 +2,8 @@
 
 # controller for Product
 class ProductsController < ApplicationController
+  # before_action :authenticate_user!
+
   def books
   	books = Section.find_by(name: 'Livres')
     @categories = Product::BOOK_CATEGORIES
