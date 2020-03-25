@@ -1,5 +1,7 @@
-%h1 #{@product.title}
-%h2 #{@product.author}
-%h2 #{@product.category}
-%p #{@product.release_year}
-%p #{@product.description}
+.section
+  .container
+    %h1{class: 'title has-text-primary'} #{@product.title}
+    %h2{class: 'subtitle'} #{@product.author} - #{@product.category} - #{@product.release_year}
+.section
+  .container
+    %p #{@product.description}

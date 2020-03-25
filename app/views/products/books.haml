@@ -1,2 +1,5 @@
-%h1 Livres
-= render 'products/shared', products: @products, categories: @categories
+.section
+  .container
+    %h1{class: 'title has-text-primary'} Livres
+    %h2{class: 'subtitle'} Les meilleurs livres écrits par des femmes
+  = render 'products/shared', products: @products, categories: @categories, section: 'books'

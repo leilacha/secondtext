@@ -1,3 +1,18 @@
-= link_to 'Second Text', root_path
-= link_to 'Livres', books_path
-= link_to 'Films', movies_path
+%nav{class: 'navbar is-transparent bd-navbar navbar has-shadow is-spaced'}
+  .container
+    .navbar-brand
+      = link_to 'Second Text', root_path, class: 'navbar-item is-size-5 has-text-primary has-text-weight-bold'
+    .navbar-menu
+      .navbar-start
+        = link_to 'Livres', books_path, class: 'navbar-item'
+        = link_to 'Films', movies_path, class: 'navbar-item'
+        = link_to 'A propos', about_path, class: 'navbar-item'
+      .navbar-end
+        .navbar-item.has-dropdown.is-hoverable
+          = link_to 'Login', movies_path, class: 'navbar-link'
+          .navbar-dropdown.is-boxed
+            .navbar-item
+              = link_to 'Mon profil', movies_path
+            .navbar-item
+              = link_to 'Log out', movies_path  
+

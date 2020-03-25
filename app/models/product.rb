@@ -7,6 +7,6 @@ class Product < ApplicationRecord
                                   message: 'Le titre existe déjà pour cet auteur' }
   belongs_to :section
 
-  BOOK_CATEGORIES = %w[Romans Essais Poésie]
-  MOVIE_CATEGORIES = %w[Français US Europe Asie Afrique Autre]
+  BOOK_CATEGORIES = %w[Tout Romans Essais Poésie]
+  MOVIE_CATEGORIES = %w[Tout Fiction Documentaire]
 end

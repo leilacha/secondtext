@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   root 'products#books'
   get 'livres', to: 'products#books', as: 'books'
   get 'films', to: 'products#movies', as: 'movies'
+  get 'about', to: 'static_pages#about', as: 'about'
   resources :products, only: [:show]
 end

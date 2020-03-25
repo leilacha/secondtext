@@ -1,11 +1,16 @@
-%table
-  %tbody
-    %tr
-      %td Rang
-      %td Titre
-      %td Autrice
-    - @products.each_with_index do |product, index|
+.container
+  %table{class: 'table is-fullwidth is-hoverable is-striped'}
+    %thead{class: 'thead'}
       %tr
-        %td= index + 1
-        %td= link_to product.title, product_path(product)
-        %td= product.author
+        %th Rang
+        %th Titre
+        %th Autrice
+        %th
+    %tbody{class: 'tbody'}
+      - @products.each_with_index do |product, index|
+        %tr
+          %td= index + 1
+          %td= link_to product.title, product_path(product)
+          %td= product.author
+          %td
+            %i{class: 'fa fa-heart'}
