@@ -1,8 +1,16 @@
 .section
   .container
-    %nav{class: 'bd-tabs'}
-      .tabs
-        %ul
-          - categories.each do |category|
-            %li
-              = link_to category, build_section_path(section, category)
+    .columns
+      .column.is-9
+        %nav{class: 'bd-tabs'}
+          .tabs
+            %ul
+              - categories.each do |category|
+                %li
+                  = link_to category, build_section_path(section, category)
+      .column.is-3
+        = form_tag build_section_path(section, params[:category]), method: :get do
+          = hidden_field_tag :category, params[:category]
+          .control
+            .select
+              = select_tag :sort_elem, options_for_select(sort_options(section), selected: params[:sort_elem]), :onchange => 'this.form.submit()', selected: params[:category], class: 'select2'

@@ -5,17 +5,17 @@ class ProductsController < ApplicationController
   # before_action :authenticate_user!
 
   def books
-  	books = Section.find_by(name: 'Livres')
+  	@section = Section.find_by(name: 'Livres')
     @categories = Product::BOOK_CATEGORIES
-  	@products = Product.where(section_id: books.id)
-    @products = sort_by_cat(@products, params[:category])
+  	@products = Product.where(section_id: @section.id)
+    @products = filter_and_sort(@products, params[:category], params[:sort_elem])
   end
 
   def movies
-    movies = Section.find_by(name: 'Films')
+    @section = Section.find_by(name: 'Films')
     @categories = Product::MOVIE_CATEGORIES
-    @products = Product.where(section_id: movies.id)
-    @products = sort_by_cat(@products, params[:category])
+    @products = Product.where(section_id: @section.id)
+    @products = filter_and_sort(@products, params[:category], params[:sort_elem])
   end
 
   def show
@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
   end
 
   def unlike
-    current_user.likes.where(product_id: params[:id]).delete_all
+    current_user.likes.where(product_id: params[:id]).destroy_all
     @product = Product.find(params[:id])
     @liked = false
     respond_to :js
@@ -50,8 +50,20 @@ class ProductsController < ApplicationController
 
   private
 
-  def sort_by_cat(products, category)
+  def filter_and_sort(products, category, sort_elem)
+    filtered_products = filter_category(products, category)
+    return filtered_products.sort_by_total_likes unless sort_elem
+    sorted_products = sort_product(filtered_products, sort_elem)
+    sorted_products
+  end
+
+  def filter_category(products, category)
     return products if category.blank? || category == 'Tout'
-    products.where(category: category)
+    products.where(category: category)    
+  end
+
+  def sort_product(products, sort_elem)
+    return products.sort_by_total_likes unless Product::SORTING_ELEMS.keys.include?(sort_elem.to_sym)
+    products.send(sort_elem)
   end
 end

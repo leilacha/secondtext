@@ -1,0 +1,31 @@
+.section
+  .container
+    %h1{class: 'title has-text-primary'} Inscription
+    %h2{class: 'subtitle'} Deviens membre de Second Text
+    .columns
+      .column.is-one-third
+        = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          = render 'devise/shared/error_messages', resource: resource
+          .field
+            %p{class: 'control has-icons-left'}
+              = f.email_field :email, type: 'email', placeholder: 'Email', autofocus: true, autocomplete: 'email', class: 'input'
+              %span{class: 'icon is-small is-left'}
+                %i{class: 'fas fa-envelope'}
+          .field
+            %p{class: 'control has-icons-left'}
+              = f.text_field :username, autofocus: true, placeholder: 'Username', class: 'input'
+              %span{class: 'icon is-small is-left'}
+                %i{class: 'fas fa-envelope'}
+          .field
+            %p{class: 'control has-icons-left'}
+              = f.password_field :password, autocomplete: 'new-password', placeholder: 'Mot de passe', class: 'input'
+              %span{class: 'icon is-small is-left'}
+                %i{class: 'fas fa-lock'}
+          .field
+            %p{class: 'control has-icons-left'}
+              = f.password_field :password_confirmation, autocomplete: 'new-password', placeholder: 'Confirmation du mot de passe', class: 'input'
+              %span{class: 'icon is-small is-left'}
+                %i{class: 'fas fa-lock'}      
+          .actions
+            = f.submit 'Go !', class: 'button is-primary'
+        = render 'devise/shared/links'

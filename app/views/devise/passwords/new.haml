@@ -1,0 +1,16 @@
+.section
+  .container
+    %h1{class: 'title has-text-primary'} Mot de passe oublié ?
+    %h2{class: 'subtitle'} Reçois un email pour recréer un mot de passe
+    .columns
+      .column.is-one-third
+        = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+          = render 'devise/shared/error_messages', resource: resource
+          .field
+            %p{class: 'control has-icons-left'}
+              = f.email_field :email, type: 'email', placeholder: 'Email', autofocus: true, autocomplete: 'email', class: 'input'
+              %span{class: 'icon is-small is-left'}
+                %i{class: 'fas fa-envelope'}
+          .actions
+            = f.submit 'Go !', class: 'button is-primary'
+        = render 'devise/shared/links'

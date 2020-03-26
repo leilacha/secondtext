@@ -1,7 +1,9 @@
-- counter = product.likes.count unless product.likes.count.zero?
+- likes_counter = product.likes_count.nil? ? '-' : product.likes_count
 - if liked
   = link_to unlike_product_path(product), method: :delete, remote: true do
-    %i{class: 'fa fa-heart  has-text-danger'}= counter
+    = likes_counter
+    %i{class: 'fa fa-heart  has-text-danger'}
 - else
   = link_to like_product_path(product), method: :post, remote: true do
-    %i{class: 'fa fa-heart'}= counter
+    = likes_counter
+    %i{class: 'fa fa-heart'}

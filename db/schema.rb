@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_25_204544) do
+ActiveRecord::Schema.define(version: 2020_04_05_133356) do
 
   create_table "authors", force: :cascade do |t|
     t.string "name"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 2020_03_25_204544) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "section_id"
     t.integer "author_id"
+    t.integer "likes_count"
+    t.integer "comments_count"
     t.index ["author_id"], name: "index_products_on_author_id"
     t.index ["section_id"], name: "index_products_on_section_id"
   end
@@ -57,6 +59,8 @@ ActiveRecord::Schema.define(version: 2020_03_25_204544) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "code"
+    t.string "creator"
   end
 
   create_table "users", force: :cascade do |t|
