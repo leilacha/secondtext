@@ -9,4 +9,6 @@ class User < ApplicationRecord
          
   has_many :likes, dependent: :destroy
   has_many :liked_products, through: :likes, source: :product
+
+  has_many :comments, dependent: :destroy
 end

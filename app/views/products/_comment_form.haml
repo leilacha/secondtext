@@ -1,0 +1,12 @@
+.columns
+  .column.is-three-quarters
+    = form_with url: comment_product_path(product) do |f|
+      %article{class: 'media'}
+        .media-content
+          .field
+            %p{class: 'control'}
+              = f.text_area :body, class: 'textarea has-fixed-size', id: "comment-form-for-product-#{product.id}", maxlength: '200', placeholder: 'Quelque chose à dire sur cette oeuvre?'
+          %nav{class: 'level'}
+            .level-left
+              .level-item
+                = f.submit 'Go !', class: 'button is-info'

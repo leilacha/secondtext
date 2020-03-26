@@ -1,0 +1,11 @@
+.columns
+  .column.is-three-quarters
+    - if product.comments.any?
+      %div{id: "comments-for-product-#{product.id}"}
+        - product.comments.each do |comment|
+          = render 'products/comment', comment: comment
+    - else
+      %div{id: "no-comments-for-product-#{product.id}"}
+        %p Pas encore de commentaire pour cette oeuvre
+    %div{id: "new-comments-for-product-#{product.id}"}
+

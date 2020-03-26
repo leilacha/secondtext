@@ -41,6 +41,13 @@ class ProductsController < ApplicationController
     respond_to :js
   end
 
+  def comment
+    @comment = current_user.comments.create(product_id: params[:id], body: params[:body])
+    @product = Product.find(params[:id])
+    @user = current_user
+    respond_to :js
+  end
+
   private
 
   def sort_by_cat(products, category)

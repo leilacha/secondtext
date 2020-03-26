@@ -5,3 +5,9 @@
 .section
   .container
     %p #{@product.description}
+.section
+  .container
+    %h2{class: 'subtitle'} Commentaires
+    = render 'products/list_comments', product: @product
+    = render 'products/comment_form', product: @product
+
