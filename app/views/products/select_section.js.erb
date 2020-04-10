@@ -1,0 +1,8 @@
+$('#new-product').html('<%= escape_javascript(render :partial => "products/form", locals: {product: @new_product, section: @section}) %>');
+$('#new-product-subtitle').html("<h2>Ajoutez un <%= @section.french_code.singularize %> </h2>");
+
+$(document).ready(function() {
+    $('.select2').select2({
+    	tags: true
+    });
+});

@@ -6,14 +6,14 @@ class ProductsController < ApplicationController
 
   def books
   	@section = Section.find_by(name: 'Livres')
-    @categories = Product::BOOK_CATEGORIES
+    @categories = @section.categories
   	@products = Product.where(section_id: @section.id)
     @products = filter_and_sort(@products, params[:category], params[:sort_elem])
   end
 
   def movies
     @section = Section.find_by(name: 'Films')
-    @categories = Product::MOVIE_CATEGORIES
+    @categories = @section.categories
     @products = Product.where(section_id: @section.id)
     @products = filter_and_sort(@products, params[:category], params[:sort_elem])
   end
@@ -22,6 +22,24 @@ class ProductsController < ApplicationController
   	@product = Product.find(params[:id])
   end
 
+  def new
+    @sections = Section.active
+  end
+
+  def create
+    complete_product_params = fetch_author_params(product_params)
+    @product = Product.new(complete_product_params)
+    if @product.save
+      @errors = false
+    else
+      @errors = @product.errors.messages.map do |item, error|
+        next if error == ['must exist']
+        error.last
+      end.compact.join(', ')
+    end
+    respond_to :js
+  end
+ 
   def destroy
     @product.destroy
   end
@@ -48,7 +66,20 @@ class ProductsController < ApplicationController
     respond_to :js
   end
 
+  def select_section
+    @section = Section.find_by(code: params[:section])
+    @new_product = Product.new
+    @new_comment = @new_product.comments.build
+    respond_to :js
+  end
+
   private
+
+private
+  def product_params
+    params.require(:product).permit(:title, :release_year, :description, :category, 
+      :section_id, :author_id, comments_attributes: [:id, :user_id, :product_id, :body, :_destroy])
+  end
 
   def filter_and_sort(products, category, sort_elem)
     filtered_products = filter_category(products, category)
@@ -65,5 +96,16 @@ class ProductsController < ApplicationController
   def sort_product(products, sort_elem)
     return products.sort_by_total_likes unless Product::SORTING_ELEMS.keys.include?(sort_elem.to_sym)
     products.send(sort_elem)
+  end
+
+  def fetch_author_params(params)
+    return params if params[:author_id].to_i != 0
+    if params[:author_id].blank?
+      params[:author_id] = nil
+    else
+      new_author = Author.create(name: params[:author_id], bio: 'À compléter')
+      params[:author_id] = new_author.id
+    end
+    params
   end
 end

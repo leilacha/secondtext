@@ -1,0 +1,41 @@
+.section.columns
+  .column.is-one-third
+    #error-pannel
+    #product-create-form
+      = form_for product, remote: true do |f|
+        = f.hidden_field :section_id, value: @section.id.to_s
+        .field
+          %label.label Catégorie
+          .control
+            .select
+              = f.select :category, options_for_select(categories_to_select(@section.code), f.object.category), {}, allow_blank: false
+        .field
+          %label.label Titre
+          .control
+            = f.text_field :title, class: 'input'
+        .field
+          %label.label= @section.creator.capitalize
+          .control
+            .select
+              = f.select :author_id, options_for_select(authors_to_select(@section.code), f.object.author_id), {}, allow_blank: false, class: 'select2'
+        .field
+          %label.label Année de parution
+          .control
+            = f.text_field :release_year, class: 'input'
+        .field
+          %label.label Description de l'oeuvre
+          .control
+            = f.text_area :description, class: 'textarea', placeholder: "Présentation formelle de l\'oeuvre, comme la quatrième de couverture ou le résumé"
+        .field
+          %label.label Votre commentaire personnel
+          .control
+            = f.fields_for :comments, f.object.comments do |ff|
+              = ff.hidden_field :user_id, value: current_user.id
+              = ff.hidden_field :product_id, value: product.id
+              = ff.text_area :body, class: 'textarea', placeholder: "Qu\'avez-vous aimé à propos de cette oeuvre ? Que signifie-t-elle pour vous?"
+        .field.is-grouped
+          .control
+            = f.submit 'Créer', class: 'button is-link'
+          .control
+            = link_to 'Annuler', send("#{@section.code}_path"), class: 'button is-link is-light'
+    #product-create-success

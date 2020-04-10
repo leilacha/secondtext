@@ -5,9 +5,11 @@
         %nav{class: 'bd-tabs'}
           .tabs
             %ul
-              - categories.each do |category|
-                %li
+              - list(categories).each do |category|
+                - active_tab = category == params[:category] ? 'is-active' : 'not-active'
+                %li{ class: active_tab }
                   = link_to category, build_section_path(section, category)
+
       .column.is-3
         = form_tag build_section_path(section, params[:category]), method: :get do
           = hidden_field_tag :category, params[:category]

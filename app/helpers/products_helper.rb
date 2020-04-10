@@ -12,14 +12,26 @@ module ProductsHelper
   end
 
   def sort_options(section)
-  	section_name = fetch_section_name(section)
+  	section = Section.find_by(code: section)
     sorting_elems = Product::SORTING_ELEMS.map { |sorting_method, label| [label, sorting_method] }
-  	[["Trier les #{section_name}", nil]] + sorting_elems
+  	[["Trier les #{section.french_code}", nil]] + sorting_elems
   end
 
-  def fetch_section_name(section)
-  	return 'livres' if section == 'books'
-  	return 'films' if section == 'movies'
-  	'oeuvres'
+  def sections_to_select
+    [["Sélectionner une catégorie", nil]] + Section.all.pluck(:name, :id)
+  end
+
+  def authors_to_select(code)
+    section = Section.find_by(code: code)
+    section = [["Sélectionner une #{section.creator.downcase}", nil]] + section.authors.pluck(:name, :id)
+  end
+
+  def categories_to_select(code)
+    section = Section.find_by(code: code)
+    section = [["Sélectionner une catégorie", nil]] + section.categories.map { |cat| [cat, cat] }
+  end
+
+  def list(categories)
+    ['Tout'] + categories
   end
 end

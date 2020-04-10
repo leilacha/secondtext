@@ -1,0 +1,10 @@
+.section
+  .container
+    %h1{class: 'title has-text-primary'} Votre contribution
+    %h2{class: 'subtitle', id: 'new-product-subtitle'} Ajoutez un ...
+  .container#new-product
+    .section
+      .fielf.is-grouped
+        .control
+          - @sections.each do |section|
+            = link_to section.french_code.singularize.capitalize, select_section_path({ section: section.code }), remote: true, class: 'button is-link'

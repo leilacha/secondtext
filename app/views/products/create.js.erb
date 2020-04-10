@@ -1,0 +1,11 @@
+<% if @errors.present? %>
+  $('#error-pannel').html("<div class='notification is-danger'><button class='delete'></button><%= @errors%></div>");
+  $('#error-pannel').show();
+  $('.delete').click(function(){
+      $('#error-pannel').hide();
+  });
+<% else %>
+  $('#error-pannel').hide();
+  $('#product-create-form').hide();
+  $('#product-create-success').html('<%= escape_javascript(render :partial => "products/product_creation_success") %>');
+<% end %>

@@ -8,6 +8,7 @@
         = link_to 'Films', movies_path, class: 'navbar-item'
         = link_to 'A propos', about_path, class: 'navbar-item'
       .navbar-end
+        = link_to 'Ajouter une oeuvre', new_product_path, class: 'button is-warning is-rounded navbar-item'
         - if user_signed_in?
           .navbar-item.has-dropdown.is-hoverable
             = link_to current_user.username, movies_path, class: 'navbar-link'

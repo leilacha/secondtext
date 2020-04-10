@@ -2,17 +2,21 @@
 
 # Model for products
 class Product < ApplicationRecord
-  validates :title, :author, :release_year, :description, :category, presence: true
-  validates :title, uniqueness: { scope: :author,
-                                  message: 'Le titre existe déjà pour cet auteur' }
+  validates :title, uniqueness: { scope: :author, case_sensitive: false, message: 'le titre existe déjà' }
+  validates_presence_of :title, message: 'le titre doit être renseigné'
+  validates_presence_of :category, message: 'la catégorie doit être renseignée'
+  validates_presence_of :release_year, message: 'la date de parution doit être renseignée'
+  validates_presence_of :author_id, message: "l\'autrice doit être renseignée"
+  validate :first_comment, on: :create
+
   belongs_to :section
   belongs_to :author
 
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  BOOK_CATEGORIES = %w[Tout Romans Essais Poésie].freeze
-  MOVIE_CATEGORIES = %w[Tout Fiction Documentaire].freeze
+  accepts_nested_attributes_for :comments, allow_destroy: true
+
   SORTING_ELEMS = {
     newest_first: 'Les +  récents',
     sort_by_total_likes: 'Les + likés',
@@ -35,5 +39,9 @@ class Product < ApplicationRecord
   def self.sort_by_total_comments
     ids = Comment.where("created_at >= ?", Time.zone.now.beginning_of_day).pluck(:product_id)
     where(id: ids).sort_by_total_likes
+  end
+
+  def first_comment
+     errors.add :comments, 'le commentaire doit être renseigné' if comments.empty?
   end
 end
