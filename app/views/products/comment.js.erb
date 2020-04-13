@@ -1,3 +1,3 @@
 $('#no-comments-for-product-<%= @product.id %>').hide();
-$('#new-comments-for-product-<%= @product.id %>').append('<%= escape_javascript(render :partial => "products/comment", locals: {comment: @comment}) %>');
+$('#new-comments-for-product-<%= @product.id %>').append('<%= escape_javascript(render :partial => "products/show/comment", locals: {comment: @comment}) %>');
 $('#comment-form-for-product-<%= @product.id %>').val('');

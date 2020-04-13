@@ -1,0 +1,20 @@
+.container
+  %table{class: 'table is-fullwidth is-hoverable is-striped'}
+    %thead{class: 'thead'}
+      %tr
+        %th Titre
+        %th= @section.creator
+        %th
+        %th
+    %tbody{class: 'tbody'}
+      - @products.each_with_index do |product, index|
+        %tr
+          %td= link_to product.title, product_path(product)
+          %td= link_to product.author.name, author_path(product.author)
+          %td{id: "like-product-#{product.id}"}
+            - liked = user_signed_in? ? user_like?(current_user, product) : false
+            = render 'products/index/like', product: product, user: current_user, liked: liked
+          %td
+            = link_to product_path(product), class: 'has-text-grey-light' do
+              = product.comments_count.nil? ? '-' : product.comments_count
+              %i{class: 'fa fa-comment has-text-grey-light'}

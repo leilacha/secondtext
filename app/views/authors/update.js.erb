@@ -1,0 +1,7 @@
+<% if @errors.present? %>
+  $('#author-error-pannel').html("<div class='notification is-danger'><button class='delete'></button><%= @errors%></div>");
+  $('#author-error-pannel').show();
+  $('.delete').click(function(){
+      $('#author-error-pannel').hide();
+  });
+<% end %>

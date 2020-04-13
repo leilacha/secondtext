@@ -9,6 +9,11 @@ class Product < ApplicationRecord
   validates_presence_of :author_id, message: "l\'autrice doit être renseignée"
   validate :first_comment, on: :create
 
+  STATUSES = %w[created published archived].freeze
+  validates :status, inclusion: { in: STATUSES }, presence: true
+  scope :published, -> { where(status: 'published') }
+  scope :created, -> { where(status: 'created') }
+
   belongs_to :section
   belongs_to :author
 

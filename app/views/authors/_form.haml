@@ -1,0 +1,18 @@
+.section.columns
+  .column.is-one-third
+    #author-error-pannel
+    #author-create-form
+      = form_for author, remote: true do |f|
+        .field
+          %label.label Nom
+          .control
+            = f.text_field :name, class: 'input'
+        .field
+          %label.label Biographie
+          .control
+            = f.text_area :bio, class: 'textarea', placeholder: "Bio de la créatrice à compléter"
+        .field.is-grouped
+          .control
+            = f.submit 'Valider', class: 'button is-link'
+          .control
+            = link_to 'Annuler', validate_path, class: 'button is-link is-light'

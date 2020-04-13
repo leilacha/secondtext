@@ -26,16 +26,24 @@
           %label.label Description de l'oeuvre
           .control
             = f.text_area :description, class: 'textarea', placeholder: "Présentation formelle de l\'oeuvre, comme la quatrième de couverture ou le résumé"
-        .field
-          %label.label Votre commentaire personnel
-          .control
-            = f.fields_for :comments, f.object.comments do |ff|
-              = ff.hidden_field :user_id, value: current_user.id
-              = ff.hidden_field :product_id, value: product.id
-              = ff.text_area :body, class: 'textarea', placeholder: "Qu\'avez-vous aimé à propos de cette oeuvre ? Que signifie-t-elle pour vous?"
+        - if role == 'edit'
+          .field
+            %label.label Status
+            .control
+              .select
+                = f.select :status, options_for_select(Product::STATUSES, f.object.status), {}, allow_blank: false
+        - else
+          = f.hidden_field :status, value: 'created'
+          .field
+            %label.label Votre commentaire personnel
+            .control
+              = f.fields_for :comments, f.object.comments do |ff|
+                = ff.hidden_field :user_id, value: current_user.id
+                = ff.hidden_field :product_id, value: product.id
+                = ff.text_area :body, class: 'textarea', placeholder: "Qu\'avez-vous aimé à propos de cette oeuvre ? Que signifie-t-elle pour vous?"
         .field.is-grouped
           .control
-            = f.submit 'Créer', class: 'button is-link'
+            = f.submit 'Valider', class: 'button is-link'
           .control
             = link_to 'Annuler', send("#{@section.code}_path"), class: 'button is-link is-light'
     #product-create-success

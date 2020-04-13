@@ -23,7 +23,7 @@ module ProductsHelper
 
   def authors_to_select(code)
     section = Section.find_by(code: code)
-    section = [["Sélectionner une #{section.creator.downcase}", nil]] + section.authors.pluck(:name, :id)
+    section = [["Sélectionner une #{section.creator.downcase}", nil]] + section.authors.pluck(:name, :id).uniq!
   end
 
   def categories_to_select(code)

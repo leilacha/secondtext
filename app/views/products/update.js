@@ -4,8 +4,4 @@
   $('.delete').click(function(){
       $('#error-pannel').hide();
   });
-<% else %>
-  $('#error-pannel').hide();
-  $('#product-create-form').hide();
-  $('#product-create-success').html('<%= escape_javascript(render :partial => "products/create/product_creation_success") %>');
 <% end %>

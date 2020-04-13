@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'livres', to: 'products#books', as: 'books'
   get 'films', to: 'products#movies', as: 'movies'
   get 'about', to: 'static_pages#about', as: 'about'
-  resources :products, only: [:show, :new, :create] do
+  resources :products do
       member do
         post 'like'
         delete 'unlike'
@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       end
   end
   get 'select_section', to: 'products#select_section', as: 'select_section'
-  resources :authors, only: [:show]
+  get 'validate', to: 'products#validate', as: 'validate'
+  resources :authors, only: [:show, :edit, :update]
   resources :comments, only: [:destroy]
 end

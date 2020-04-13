@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_12_190122) do
+ActiveRecord::Schema.define(version: 2020_04_13_152634) do
 
   create_table "authors", force: :cascade do |t|
     t.string "name"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2020_04_12_190122) do
     t.integer "author_id"
     t.integer "likes_count"
     t.integer "comments_count"
+    t.string "status"
     t.index ["author_id"], name: "index_products_on_author_id"
     t.index ["section_id"], name: "index_products_on_section_id"
   end

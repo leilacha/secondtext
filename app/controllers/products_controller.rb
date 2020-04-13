@@ -7,14 +7,14 @@ class ProductsController < ApplicationController
   def books
   	@section = Section.find_by(name: 'Livres')
     @categories = @section.categories
-  	@products = Product.where(section_id: @section.id)
+  	@products = Product.where(section_id: @section.id).published
     @products = filter_and_sort(@products, params[:category], params[:sort_elem])
   end
 
   def movies
     @section = Section.find_by(name: 'Films')
     @categories = @section.categories
-    @products = Product.where(section_id: @section.id)
+    @products = Product.where(section_id: @section.id).published
     @products = filter_and_sort(@products, params[:category], params[:sort_elem])
   end
 
@@ -40,6 +40,25 @@ class ProductsController < ApplicationController
     respond_to :js
   end
  
+  def edit
+    @product = Product.find(params[:id])
+    @section = Section.find(@product.section.id)
+    @categories = @section.categories
+  end
+
+  def update
+    @product = Product.find(params[:id])
+    if @product.update(product_params)
+      redirect_to validate_path
+    else
+      @errors = @product.errors.messages.map do |item, error|
+        next if error == ['must exist']
+        error.last
+      end.compact.join(', ')
+    end
+    respond_to :js
+  end
+
   def destroy
     @product.destroy
   end
@@ -73,11 +92,13 @@ class ProductsController < ApplicationController
     respond_to :js
   end
 
-  private
+  def validate
+    @products = Product.created
+  end
 
-private
+  private
   def product_params
-    params.require(:product).permit(:title, :release_year, :description, :category, 
+    params.require(:product).permit(:title, :release_year, :description, :category, :status,
       :section_id, :author_id, comments_attributes: [:id, :user_id, :product_id, :body, :_destroy])
   end
 

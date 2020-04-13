@@ -1,0 +1,5 @@
+.section
+  .container
+    %h1{class: 'title has-text-primary'} Tour de contrôle
+    %h2{class: 'subtitle'} #{@products.count} oeuvres à valider
+  = render 'products/admin/validate_table'

@@ -1,0 +1,13 @@
+.container
+  %table{class: 'table is-fullwidth is-hoverable is-striped'}
+    %thead{class: 'thead'}
+      %tr
+        %th
+        %th Titre
+        %th Créatrice
+    %tbody{class: 'tbody'}
+      - @products.each_with_index do |product|
+        %tr
+          %td= product.section.name
+          %td= link_to product.title, edit_product_path(product)
+          %td= link_to product.author.name, edit_author_path(product.author)

@@ -1,0 +1,7 @@
+.section
+  .container
+    %h1{class: 'title has-text-primary'} #{@author.name}
+    %h2{class: 'subtitle'} Editer
+.section
+  .container
+    = render 'authors/form', author: @author
